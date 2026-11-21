@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#141118" />
+  <title>Meroo's anniversary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #141118;
+      --card: #1f1a26;
+      --card-soft: #282131;
+      --text: #fbf7ff;
+      --muted: #c8bdd4;
+      --accent: #ff6b9d;
+      --accent-soft: rgba(255, 107, 157, 0.16);
+      --border: rgba(255, 255, 255, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Cairo", sans-serif;
+      background: radial-gradient(circle at top, #291b33 0%, var(--bg) 60%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 20px 16px 90px;
+      line-height: 1.7;
+    }
+
+    .lock-screen {
+      max-width: 420px;
+      margin: 14vh auto 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px 22px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    .lock-screen h1 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .lock-screen p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+
+    .lock-input {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--card-soft);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1.05rem;
+      text-align: center;
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+      outline: none;
+    }
+
+    .lock-input:focus {
+      border-color: var(--accent);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 14px;
+      background: var(--accent);
+      color: #fff;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .error-msg {
+      color: #ff9ab8;
+      font-size: 0.88rem;
+      min-height: 22px;
+      margin-top: 8px;
+    }
+
+    .app {
+      display: none;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px 20px;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .hero .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+
+    .counter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .counter-box {
+      background: var(--card-soft);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px 6px;
+    }
+
+    .counter-num {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .counter-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 22px 18px;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .letter {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .media-card {
+      background: var(--card-soft);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .media-card img,
+    .media-card video {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      display: block;
+      background: #0d0a12;
+    }
+
+    .media-caption {
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .open-card {
+      background: var(--card-soft);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      cursor: pointer;
+    }
+
+    .open-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+    }
+
+    .open-card-body {
+      display: none;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .open-card.active .open-card-body {
+      display: block;
+    }
+
+    #musicToggleBtn {
+      position: fixed;
+      bottom: 18px;
+      left: 18px;
+      z-index: 9999;
+      padding: 10px 15px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(24, 19, 32, 0.9);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    @media (max-width: 480px) {
+      .counter-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <section id="lockScreen" class="lock-screen">
+    <h1>Meroo's anniversary</h1>
+    <p>اكتب الباسورد عشان تفتح ذكرياتنا</p>
+    <input id="passInput" class="lock-input" type="password" inputmode="numeric" placeholder="•••••••" />
+    <button class="btn" type="button" onclick="unlockApp()">دخول</button>
+    <div id="errorMsg" class="error-msg"></div>
+  </section>
+
+  <main id="appContent" class="app">
+    <section class="hero">
+      <h1>Meroo's anniversary</h1>
+      <p class="subtitle">من 14 مايو 2025 وإحنا مكملين سوا</p>
+      <div class="counter-grid">
+        <div class="counter-box">
+          <div id="days" class="counter-num">0</div>
+          <div class="counter-label">أيام</div>
+        </div>
+        <div class="counter-box">
+          <div id="hours" class="counter-num">0</div>
+          <div class="counter-label">ساعات</div>
+        </div>
+        <div class="counter-box">
+          <div id="minutes" class="counter-num">0</div>
+          <div class="counter-label">دقائق</div>
+        </div>
+        <div class="counter-box">
+          <div id="seconds" class="counter-num">0</div>
+          <div class="counter-label">ثواني</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">رسالة ليكي</h2>
+      <p class="letter">
+        كل لحظة عدت من يوم 14 مايو 2025 فرقت في يومي وخلت له طعم مختلف. وجودك جنبي هو أكتر حاجة بتطمني وبتسعدني، وده مكان صغير يجمع أحلى ذكرياتنا.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">ألبوم الذكريات</h2>
+      <div class="gallery">
+        <div class="media-card">
+          <img src="photo1.jpg" alt="أكتر صورة بحبها لينا" />
+          <div class="media-caption">أكتر صورة بحبها لينا</div>
+        </div>
+        <div class="media-card">
+          <img src="photo2.jpg" alt="وحشتيني" />
+          <div class="media-caption">وحشتيني</div>
+        </div>
+        <div class="media-card">
+          <video id="memoryVideo" src="video1.mp4" controls playsinline preload="metadata"></video>
+          <div class="media-caption">التشجيع</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Open When</h2>
+      <div class="cards-grid">
+        <div class="open-card" onclick="this.classList.toggle('active')">
+          <div class="open-card-head">
+            <span>لما تحسي إنك مضغوطة</span>
+            <span>+</span>
+          </div>
+          <div class="open-card-body">
+            خدي نفس عميق وافتكري إنك قدها وإني دايماً في ضهرك ومبسوط بكل خطوة بتاخديها.
+          </div>
+        </div>
+        <div class="open-card" onclick="this.classList.toggle('active')">
+          <div class="open-card-head">
+            <span>لما توحشك ضحكتنا</span>
+            <span>+</span>
+          </div>
+          <div class="open-card-body">
+            ابتسمي دلوقتي، لأن الأيام الجاية شايلة كلام كتير حلو وذكريات أجمل لينا إحنا الاتنين.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- غيّر music.mp3 إلى الاسم الجديد لملف الأغنية المرفوع في المستودع -->
+  <audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
+
+  <button id="musicToggleBtn" type="button" onclick="toggleBgMusic()" aria-label="تشغيل أو إيقاف الأغنية">
+    🔇 تشغيل الأغنية
+  </button>
+
+  <script>
+    const PASSCODE = "1452025";
+    const START_DATE = new Date("2025-05-14T00:00:00");
+
+    const audio = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicToggleBtn");
+    const memoryVideo = document.getElementById("memoryVideo");
+
+    function updateMusicLabel() {
+      if (!audio || !musicBtn) return;
+      musicBtn.textContent = audio.paused ? "🔇 تشغيل الأغنية" : "🔊 إيقاف الأغنية";
+    }
+
+    function playBgMusic() {
+      if (!audio) return;
+      audio.play().then(updateMusicLabel).catch(updateMusicLabel);
+    }
+
+    function toggleBgMusic() {
+      if (!audio) return;
+      if (audio.paused) {
+        playBgMusic();
+      } else {
+        audio.pause();
+        updateMusicLabel();
+      }
+    }
+
+    if (audio) {
+      audio.addEventListener("play", updateMusicLabel);
+      audio.addEventListener("pause", updateMusicLabel);
+    }
+
+    if (memoryVideo && audio) {
+      memoryVideo.addEventListener("play", function () {
+        if (!audio.paused) {
+          audio.pause();
+          updateMusicLabel();
+        }
+      });
+    }
+
+    function unlockApp() {
+      const input = document.getElementById("passInput");
+      const errorMsg = document.getElementById("errorMsg");
+      if (input.value.trim() === PASSCODE) {
+        errorMsg.textContent = "";
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("appContent").style.display = "block";
+        playBgMusic();
+      } else {
+        errorMsg.textContent = "الباسورد غلط، جرب تاني";
+      }
+    }
+
+    document.getElementById("passInput").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        unlockApp();
+      }
+    });
+
+    function updateCounter() {
+      const now = new Date();
+      let diff = Math.max(0, now - START_DATE);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff %= 1000 * 60 * 60 * 24;
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      diff %= 1000 * 60 * 60;
+
+      const minutes = Math.floor(diff / (1000 * 60));
+      diff %= 1000 * 60;
+
+      const seconds = Math.floor(diff / 1000);
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+    }
+
+    updateCounter();
+    setInterval(updateCounter, 1000);
+    updateMusicLabel();
+  </script>
+</body>
+</html>
